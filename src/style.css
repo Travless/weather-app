@@ -1,0 +1,71 @@
+*{
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+#page-cont {
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between ;
+}
+
+#info-cont {
+    background-color: green;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+#city-name,
+#current-temp-f,
+#current-temp-c {
+    font-size: 2rem;
+    /* margin-top: 3vh;
+    margin-bottom: 3vh; */
+}
+
+#city-name {
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}
+
+
+
+#high-low-temps-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#high-low-f,
+#high-low-c {
+    display: flex;
+    flex-direction: row;
+}
+
+#high-f,
+#low-f,
+#high-c,
+#low-c {
+    font-size: 1.5rem;
+}
+
+#weather-cond {
+    width: 30%;
+    height: auto;
+    margin-bottom: 3vh;
+}

@@ -4,14 +4,125 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../src/style.css">
     <script src="main.js" defer></script>
     <title>Weather</title>
 </head>
 <body>
-    <div id="zip-cont">
-        <label for="zip">Zip Code</label>
-        <input type="text" id="zip"/>
-        <button id="submit">Submit</button>
+    <div id="header">
+        <div id="title-cont">
+            <div>Your Forecast</div>
+        </div>
+        <div id="zip-cont">
+            <label for="zip">Zip Code</label>
+            <input type="text" id="zip"/>
+            <button id="submit">Submit</button>
+        </div>
+    </div>
+    <div id="page-cont">
+        <div id="weather-cont">
+            <div id="info-cont" hidden>
+                <div id="city-name"></div>
+                <img src="" id="weather-cond" />
+                <div id="current-temp-f"></div>
+                <div id="current-temp-c" hidden></div>
+                <div id="high-low-temps-cont">
+                    <div id="high-low-f-cont">
+                        <div id="high-low-f">
+                            <div id="high-f"></div>
+                            <div id="low-f"></div>
+                        </div>
+                    </div>
+                    <div id="high-low-c-cont" hidden>
+                        <div id="high-low-c">
+                            <div id="high-c"></div>
+                            <div id="low-c"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="5-day-cont">
+                    <!-- <div class="day-cont" id="day-1">
+                        <div class="5-day-cond" id="day-1-cond"></div>
+                        <div class="5-day-temp-cont" id="day-1-temps">
+                            <div class="5-day-high-low" id="day-1-high-low-f">
+                                <div id="day-1-high-f"></div>
+                                <div id="day-1-low-f"></div>
+                            </div>
+                            <div class="5-day-high-low" id="day-1-high-low-c" hidden>
+                                <div id="day-1-high-c"></div>
+                                <div id="day-1-low-c"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day-cont" id="day-2">
+                        <div class="5-day-cond" id="day-2-cond"></div>
+                        <div class="5-day-temp-cont" id="day-2-temps">
+                            <div class="5-day-high-low" id="day-2-high-low-f">
+                                <div class="5-day-temp" id="day-2-high-f"></div>
+                                <div class="5-day-temp" id="day-2-low-f"></div>
+                            </div>
+                            <div class="5-day-high-low" id="day-2-high-low-c" hidden>
+                                <div class="5-day-temp" id="day-2-high-c"></div>
+                                <div class="5-day-temp" id="day-2-low-c"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day-cont" id="day-3">
+                        <div class="5-day-cond" id="day-3-cond"></div>
+                        <div class="5-day-temp-cont" id="day-3-temps">
+                            <div class="5-day-high-low" id="day-3-high-low-f">
+                                <div class="5-day-temp" id="day-3-high-f"></div>
+                                <div class="5-day-temp" id="day-3-low-f"></div>
+                            </div>
+                            <div class="5-day-high-low" id="day-3-high-low-c" hidden>
+                                <div class="5-day-temp" id="day-3-high-c"></div>
+                                <div class="5-day-temp" id="day-3-low-c"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day-cont" id="day-4">
+                        <div class="5-day-cond" id="day-4-cond"></div>
+                        <div class="5-day-temp-cont" id="day-4-temps">
+                            <div class="5-day-high-low" id="day-4-high-low-f">
+                                <div class="5-day-temp" id="day-4-high-f"></div>
+                                <div class="5-day-temp" id="day-4-low-f"></div>
+                            </div>
+                            <div class="5-day-high-low" id="day-4-high-low-c" hidden>
+                                <div class="5-day-temp" id="day-4-high-c"></div>
+                                <div class="5-day-temp" id="day-4-low-c"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day-cont" id="day-5">
+                        <div class="5-day-cond" id="day-5-cond"></div>
+                        <div class="5-day-temp-cont" id="day-5-temps">
+                            <div class="5-day-high-low" id="day-5-high-low-f">
+                                <div class="5-day-temp" id="day-5-high-f"></div>
+                                <div class="5-day-temp" id="day-5-low-f"></div>
+                            </div>
+                            <div class="5-day-high-low" id="day-5-high-low-c" hidden>
+                                <div class="5-day-temp" id="day-5-high-c"></div>
+                                <div class="5-day-temp" id="day-5-low-c"></div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
+
+<!-- <div class="day-cont" id="day-1">
+    <div class="5-day-cond" id="day-1-cond"></div>
+    <div class="5-day-temp-cont" id="day-1-temps">
+        <div class="5-day-high-low" id="day-1-high-low-f">
+            <div id="day-1-high-f"></div>
+            <div id="day-1-low-f"></div>
+        </div>
+        <div class="5-day-high-low" id="day-1-high-low-c" hidden>
+            <div id="day-1-high-c"></div>
+            <div id="day-1-low-c"></div>
+        </div>
+    </div>
+</div> -->
