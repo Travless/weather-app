@@ -15,8 +15,9 @@ const highF = document.getElementById('high-f')
 const lowF = document.getElementById('low-f');
 const highC = document.getElementById('high-c');
 const lowC = document.getElementById('low-c');
+const currentDayHourlyCont = document.getElementById('current-day-hourly-cont');
 
-
+let currentDayHours = [];
 
 
 async function currentWeatherData(){
@@ -24,13 +25,17 @@ async function currentWeatherData(){
         const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zip.value}&appid=b7f1fbb932658e619437fbf70e6e972a`);
         const data = await res.json();
         const overall = await data.weather[0].id;
+
         const currentTemp = await data.main.temp;
         const currentC = await currentTemp - 273;
         const currentF = await Math.floor(currentC * (9/5) + 32);
+
         const highTempC = await data.main.temp_max - 273;
         const lowTempC = await data.main.temp_min -273;
         const highTempF = await Math.floor(highTempC * (9/5) + 32);
         const lowTempF = await Math.floor(lowTempC * (9/5) + 32);
+
+
         cityName.textContent = `${data.name}`;
         await fetchWeatherImg(overall);
         currentTempF.textContent = `${currentF}°F`;
@@ -49,24 +54,55 @@ async function currentWeatherData(){
     }
 };
 
-async function futureForecastData () {
+async function forecastGen () {
     try {
-        const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${zip.value}&appid=b7f1fbb932658e619437fbf70e6e972a`);
+        const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${zip.value}&cnt=8&appid=b7f1fbb932658e619437fbf70e6e972a`);
         const data = await res.json();
-        console.log(data);
+        for (let i = 0; i < 8; i++){
+            await currentDayHours.push(data.list[i]);
+        }
+        await console.log(currentDayHours);
     } catch (err) {
         console.log('Error!');
         console.error(err);
     }
 }
 
-async function forecastDayGen (days) {
+async function dayElementGen () {
     try {
-        days.forEach(async (day) => {
-            const dayCont = document.createElement('div').classList.add('class-cont');
-            const fiveDayCond = document.createElement('img').classList.add('5-day-cond');
-            fiveDayCond.
-        })
+        // Day Container
+        const dayCont = await document.createElement('div').classList.add('class-cont');
+
+        const currentDayTime = await document.createElement('div').classList.add('current-day-time');
+        await dayCont.append(currentDayTime);
+
+        const currentDayHourly = await document.createElement('div').classList.add('current-day-hourly');
+        await dayCont.append(currentDayHourly);
+
+        // Day Condition Img
+        const currentDayHourlyCond = await document.createElement('img').classList.add('5-day-cond');
+        await currentDayHourly.append(currentDayHourlyCond);
+
+        // Day Temp 
+        const currentDayHourlyTempCont = await document.createElement('div').classList.add('5-day-temp-cont');
+        await currentDayHourly.append(currentDayHourlyTempCont);
+
+        // Day High Low (F)
+        const currentDayHourlyHighLowF = await document.createElement('div').classList.add('5-day-high-low-f');
+        await currentDayHourlyTempCont.append(currentDayHourlyHighLowF);
+        const currentDayHourlyHighF = await document.createElement('div').classList.add('5-day-high-f');
+        await currentDayHourlyHighLowF.append(currentDayHourlyHighF);
+        const currentDayHourlyLowF = await document.createElement('div').classList.add('5-day-low-f');
+        await currentDayHourlyHighLowF.append(currentDayHourlyLowF);
+
+        // Day High Low (C)
+        const currentDayHourlyHighLowC = await document.createElement('div').classList.add('5-day-high-low-c');
+        await currentDayHourlyTempCont.append(currentDayHourlyHighLowC);
+        const currentDayHourlyHighC = await document.createElement('div').classList.add('5-day-high-c');
+        await currentDayHourlyHighLowC.append(currentDayHourlyHighC);
+        const currentDayHourlyLowC = await document.createElement('div').classList.add('5-day-low-c');
+        await currentDayHourlyHighLowC.append(currentDayHourlyLowC);
+
     } catch (err) {
         console.log('Error!');
         console.error(err);
@@ -110,5 +146,5 @@ async function fetchWeatherImg (id) {
 submit.addEventListener('click', e => {
     infoCont.hidden = false;
     const current = currentWeatherData();
-    const future = futureForecastData();
+    const future = forecastGen();
 })
