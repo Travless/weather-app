@@ -6,19 +6,25 @@ body {
     margin: 0;
 }
 
+#weather-cont {
+    display: flex;
+    flex-direction: row;
+}
+
 #page-cont {
     background-color: red;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 70vh;
 }
 
 #header {
     display: flex;
     flex-direction: row;
     justify-content: space-between ;
+    height: 5vh;
 }
 
 #info-cont {
@@ -28,6 +34,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%;
+    width: 100%;
 }
 #city-name,
 #current-temp-f,
@@ -68,4 +75,37 @@ body {
     width: 30%;
     height: auto;
     margin-bottom: 3vh;
+}
+
+.current-day-hourly-cond {
+    width: 10%;
+    height: auto;
+}
+
+#panels-cont {
+    display: grid;
+    grid-template-rows: 12.5vh 12.5vh;
+    background-color: orange;
+    justify-items: center;
+    height: 25vh;
+}
+
+#panel-1,
+#panel-2 {
+    display: grid;
+    grid-template-columns: 20vw 20vw 20vw;
+}
+
+.feels-like-cont,
+.humidity-cont,
+.wind-cont,
+.pressure-cont,
+.cloudiness-cont,
+.visibility-cont {
+    border: 1px solid black;
+}
+
+.wind-cont {
+    display: flex;
+    flex-direction: column;
 }
