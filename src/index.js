@@ -3,6 +3,7 @@ import { forEach, min } from 'lodash';
  
 const zip = document.getElementById('zip');
 const submit = document.getElementById('submit');
+const weatherCont = document.getElementById('weather-cont');
 const infoCont = document.getElementById('info-cont');
 // let weatherInfo = [];
 const cityName = document.getElementById('city-name');
@@ -40,6 +41,7 @@ async function currentWeatherData(){
  
  
        cityName.textContent = `${data.name}`;
+       await fetchWeatherBackground(overall, weatherCont);
        await fetchWeatherImg(overall, weatherCond);
        await additionalInfoPanels(data);
        currentTempF.textContent = `${currentF}°F`;
@@ -288,6 +290,40 @@ async function fetchWeatherImg (id, data) {
        console.log('Error!');
        console.error(err);
    }
+}
+
+async function fetchWeatherBackground (id, data){
+    try{
+        if (id >= 200 && id < 300) {
+            const thunder = await fetch('../src/img/background/thunder.jpg');
+            const blob = await thunder.blob();
+            data.style.backgroundImage.URL = URL.createObjectURL(blob);
+        } else if (id >= 300 && id < 600) {
+            const rainy = await fetch('../src/img/background/rainy.jpg');
+            const blob = await rainy.blob();
+            data.style.backgroundImage.URL = URL.createObjectURL(blob);
+        } else if (id >= 600 && id < 700) {
+            const snowing = await fetch('../src/img/background/snowy.jpg');
+            const blob = await snowing.blob();
+            data.style.backgroundImage.URL = URL.createObjectURL(blob);
+        } else if (id >= 700 && id < 800) {
+            const warning = await fetch('../src/img/background/fog.jpg');
+            const blob = await warning.blob();
+            data.style.backgroundImage.URL = URL.createObjectURL(blob);
+        } else if (id === 800) {
+            const sunny = await fetch('../src/img/background/sunny.jpeg');
+            const blob = await sunny.blob();
+            data.style.backgroundImage.URL = URL.createObjectURL(blob);
+        } else {
+            data.style.backgroundImage = await "url('../src/img/background/cloudy.jpeg')";
+            // const clouds = await fetch('../src/img/background/cloudy.jpeg');
+            // const blob = await clouds.blob();
+            // console.log(blob);
+            // data.style.backgroundImage.URL = URL.createObjectURL(blob);
+        }
+    } catch {
+
+    }
 }
  
  
