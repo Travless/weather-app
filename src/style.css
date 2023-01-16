@@ -9,6 +9,8 @@ body {
 #weather-cont {
     display: flex;
     flex-direction: row;
+    width: 100vw;
+    height: 70vh;
 }
 
 #page-cont {
