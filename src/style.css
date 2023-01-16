@@ -1,9 +1,50 @@
+@font-face {
+    font-family: 'body';
+    src: url(/src/fonts/Garet-Book.ttf);
+}
+
+@font-face {
+    font-family: 'heading';
+    src: url(/src/fonts/Garet-Heavy.ttf);
+}
+
 *{
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
+}
+
+#current-temp-f,
+#current-temp-c,
+#high-f,
+#low-f,
+#high-c,
+#low-c,
+.current-day-time,
+.current-day-hourly-f,
+.current-day-hourly-c,
+.feels-like-temp-f,
+.feels-like-temp-c,
+.humidity-data,
+.wind-data,
+.pressure-data,
+.cloudiness-data,
+.visibility-data {
+    font-family: 'body';
+}
+
+#title-cont,
+#zip-label,
+#city-name,
+.feels-like-title,
+.humidity-title,
+.wind-title,
+.pressure-title,
+.cloudiness-title,
+.visibility-title {
+    font-family: 'heading';
 }
 
 #weather-cont {
@@ -13,14 +54,13 @@ body {
     height: 70vh;
 }
 
-#page-cont {
-    /* background-color: red; */
+/* #page-cont {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 70vh;
-}
+    height: 100vh;
+} */
 
 #header {
     display: flex;
@@ -36,13 +76,14 @@ body {
 }
 
 #info-cont {
-    background-color: green;
+    border: 1px solid black;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
     width: 30vw;
+   background-color: rgba(115, 115, 115, .75);
 }
 #city-name,
 #current-temp-f,
@@ -90,19 +131,18 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: red;
     border: 1px solid black;
     height: 8.75vh;
     width: 30vw;
+    background-color: rgba(115, 115, 115, .75);
 }
 
 .current-day-time {
-    background-color: aqua;
+    align-self: center;
 }
 
 .current-day-temp-cond-cont {
-    background-color: green;
-    border: 1px solid yellow;
+    border: 1px solid black;
     width: 10vw;
     display: flex;
     flex-direction: row;
@@ -112,7 +152,6 @@ body {
 .current-day-hourly-cond {
     width: 20%;
     height:auto;
-    background-color: aqua;
     align-self: center;
 }
 
@@ -139,15 +178,16 @@ body {
 #panels-cont {
     display: grid;
     grid-template-rows: 12.5vh 12.5vh;
-    background-color: orange;
     justify-items: center;
     height: 25vh;
+    width: 100vw;
 }
 
 #panel-1,
 #panel-2 {
     display: grid;
     grid-template-columns: 20vw 20vw 20vw;
+    background-color: rgba(115, 115, 115, .75);
 }
 
 .feels-like-cont,

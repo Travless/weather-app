@@ -14,38 +14,42 @@
             <div>Your Forecast</div>
         </div>
         <div id="zip-cont">
-            <label for="zip">Zip Code</label>
+            <label id="zip-label" for="zip">Zip Code</label>
             <input type="text" id="zip"/>
             <button id="submit">Submit</button>
         </div>
     </div>
     <div id="page-cont">
         <div id="weather-cont">
-            <div id="info-cont" hidden>
-                <div id="city-name"></div>
-                <img src="" id="weather-cond" />
-                <div id="current-temp-f"></div>
-                <div id="current-temp-c" hidden></div>
-                <div id="high-low-temps-cont">
-                    <div id="high-low-f-cont">
-                        <div id="high-low-f">
-                            <div id="high-f"></div>
-                            <div id="low-f"></div>
+            <div id="info" hidden>
+                <div id="info-cont">
+                    <div id="city-name"></div>
+                    <img src="" id="weather-cond" />
+                    <div id="current-temp-f"></div>
+                    <div id="current-temp-c" hidden></div>
+                    <div id="high-low-temps-cont">
+                        <div id="high-low-f-cont">
+                            <div id="high-low-f">
+                                <div id="high-f"></div>
+                                <div id="low-f"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div id="high-low-c-cont" hidden>
-                        <div id="high-low-c">
-                            <div id="high-c"></div>
-                            <div id="low-c"></div>
+                        <div id="high-low-c-cont" hidden>
+                            <div id="high-low-c">
+                                <div id="high-c"></div>
+                                <div id="low-c"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div id="current-day-hourly-cont" hidden></div></div>
         </div>
-        <div id="panels-cont" hidden>
-            <div id="panel-1"></div>
-            <div id="panel-2"></div>
+        <div id="panels" hidden>
+            <div id="panels-cont">
+                <div id="panel-1"></div>
+                <div id="panel-2"></div>
+            </div>
         </div>
     </div>
 </body>

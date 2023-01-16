@@ -6,6 +6,7 @@ const submit = document.getElementById('submit');
 const pageCont = document.getElementById('page-cont');
 const weatherCont = document.getElementById('weather-cont');
 const infoCont = document.getElementById('info-cont');
+const info = document.getElementById('info');
 // let weatherInfo = [];
 const cityName = document.getElementById('city-name');
 const weatherCond = document.getElementById('weather-cond');
@@ -21,6 +22,7 @@ const currentDayHourlyCont = document.getElementById('current-day-hourly-cont');
 const panelOne = document.getElementById('panel-1');
 const panelTwo = document.getElementById('panel-2');
 const panelsCont = document.getElementById('panels-cont');
+const panels = document.getElementById('panels');
  
 let currentDayHours = [];
 let weatherID = '';
@@ -45,8 +47,8 @@ async function currentWeatherData(){
  
  
        cityName.textContent = `${data.name}`;
-       await fetchWeatherBackground(overall, weatherCont);
-       await fetchWeatherImg(overall, weatherCond);
+       fetchWeatherBackground(overall, pageCont);
+       fetchWeatherImg(overall, weatherCond);
        panelOne.innerHTML = '';
        panelTwo.innerHTML = '';
        await additionalInfoPanels(data);
@@ -118,7 +120,7 @@ function dayElementGen (array, i) {
     currentDayHourlyTempCont.append(currentDayHourlyF);
     currentDayHourlyF.setAttribute('id', `current-day-hourly-f-${i}`)
     const tempConversionF = Math.floor((9 / 5) * ((array[i].main.temp) - 273) + 32);
-    currentDayHourlyF.textContent = `${tempConversionF}`;
+    currentDayHourlyF.textContent = `${tempConversionF}°F`;
 
     // Current Day Hourly Temp (C)
     const currentDayHourlyC = document.createElement('div');
@@ -126,51 +128,11 @@ function dayElementGen (array, i) {
     currentDayHourlyTempCont.append(currentDayHourlyC);
     currentDayHourlyC.setAttribute('id', `current-day-hourly-c-${i}`);
     const tempConversionC = Math.floor(array[i].main.temp - 273.15);
-    currentDayHourlyC.textContent = `${tempConversionC}`;
+    currentDayHourlyC.textContent = `${tempConversionC}°C`;
 
    return dayCont;
 }
- 
-// async function dayElementGen () {
-//     try {
-//         // Day Container
-//         const dayCont = await document.createElement('div').classList.add('class-cont');
- 
-//         const currentDayTime = await document.createElement('div').classList.add('current-day-time');
-//         await dayCont.append(currentDayTime);
- 
-//         const currentDayHourly = await document.createElement('div').classList.add('current-day-hourly');
-//         await dayCont.append(currentDayHourly);
- 
-//         // Day Condition Img
-//         const currentDayHourlyCond = await document.createElement('img').classList.add('5-day-cond');
-//         await currentDayHourly.append(currentDayHourlyCond);
- 
-//         // Day Temp
-//         const currentDayHourlyTempCont = await document.createElement('div').classList.add('5-day-temp-cont');
-//         await currentDayHourly.append(currentDayHourlyTempCont);
- 
-//         // Day High Low (F)
-//         const currentDayHourlyHighLowF = await document.createElement('div').classList.add('5-day-high-low-f');
-//         await currentDayHourlyTempCont.append(currentDayHourlyHighLowF);
-//         const currentDayHourlyHighF = await document.createElement('div').classList.add('5-day-high-f');
-//         await currentDayHourlyHighLowF.append(currentDayHourlyHighF);
-//         const currentDayHourlyLowF = await document.createElement('div').classList.add('5-day-low-f');
-//         await currentDayHourlyHighLowF.append(currentDayHourlyLowF);
- 
-//         // Day High Low (C)
-//         const currentDayHourlyHighLowC = await document.createElement('div').classList.add('5-day-high-low-c');
-//         await currentDayHourlyTempCont.append(currentDayHourlyHighLowC);
-//         const currentDayHourlyHighC = await document.createElement('div').classList.add('5-day-high-c');
-//         await currentDayHourlyHighLowC.append(currentDayHourlyHighC);
-//         const currentDayHourlyLowC = await document.createElement('div').classList.add('5-day-low-c');
-//         await currentDayHourlyHighLowC.append(currentDayHourlyLowC);
- 
-//     } catch (err) {
-//         console.log('Error!');
-//         console.error(err);
-//     }
-// }
+
  
 async function additionalInfoPanels (data) {
  
@@ -180,17 +142,18 @@ async function additionalInfoPanels (data) {
    panelOne.append(feelsLikeCont);
  
    const feelsLikeTitle = document.createElement('div');
+   feelsLikeTitle.classList.add('feels-like-title');
    feelsLikeTitle.textContent = 'Feels Like';
    feelsLikeCont.append(feelsLikeTitle);
  
    const feelsLikeTempF = document.createElement('div');
    feelsLikeTempF.classList.add('feels-like-temp-f');
-   feelsLikeTempF.textContent = Math.floor(9 / 5 * ((data.main.feels_like) - 273) + 32);
+   feelsLikeTempF.textContent = `${Math.floor(9 / 5 * ((data.main.feels_like) - 273) + 32)}°F`;
    feelsLikeCont.append(feelsLikeTempF);
  
    const feelsLikeTempC = document.createElement('div');
    feelsLikeTempC.classList.add('feels-like-temp-c');
-   feelsLikeTempC.textContent = Math.floor(data.main.feels_like - 273.15);
+   feelsLikeTempC.textContent = `${Math.floor(data.main.feels_like - 273.15)}°C`;
    feelsLikeCont.append(feelsLikeTempC);
  
  
@@ -307,20 +270,26 @@ async function fetchWeatherImg (id, data) {
    }
 }
 
-async function fetchWeatherBackground (id, data){
+async function fetchWeatherBackground (id){
     try{
         if (id >= 200 && id < 300) {
-            data.style.backgroundImage = "url('../src/img/background/thunder.jpg')";
+            document.body.style.backgroundImage = "url('../src/img/background/thunder.jpg')";
+            document.body.style.backgroundSize = 'cover';
         } else if (id >= 300 && id < 600) {
-            data.style.backgroundImage = "url('../src/img/background/rainy.jpg')";
+            document.body.style.backgroundImage = "url('../src/img/background/rainy.jpg')";
+            document.body.style.backgroundSize = 'cover';
         } else if (id >= 600 && id < 700) {
-            data.style.backgroundImage = "url('../src/img/background/snowy.jpg')";
+            document.body.style.backgroundImage = "url('../src/img/background/snowy.jpg')";
+            document.body.style.backgroundSize = 'cover';
         } else if (id >= 700 && id < 800) {
-            data.style.backgroundImage = "url('../src/img/background/fog.jpg')";
+            document.body.style.backgroundImage = "url('../src/img/background/fog.jpg')";
+            document.body.style.backgroundSize = 'cover';
         } else if (id === 800) {
-            data.style.backgroundImage = await "url('../src/img/background/sunny.jpeg')";
+            document.body.style.backgroundImage = await "url('../src/img/background/sunny.jpeg')";
+            document.body.style.backgroundSize = 'cover';
         } else {
-            data.style.backgroundImage = await "url('../src/img/background/cloudy.jpeg')";
+            document.body.style.backgroundImage = await "url('../src/img/background/cloudy.jpeg')";
+            document.body.style.backgroundSize = 'cover';
         }
     } catch (err) {
         console.log('Error!');
@@ -331,9 +300,9 @@ async function fetchWeatherBackground (id, data){
  
 submit.addEventListener('click', e => {
     currentDayHourlyCont.innerHTML = '';
-   infoCont.hidden = false;
+   info.hidden = false;
    currentDayHourlyCont.hidden = false;
-   panelsCont.hidden = false;
+   panels.hidden = false;
    const current = currentWeatherData();
    const future = forecastGen();
 })
