@@ -3,6 +3,7 @@ import { forEach, min } from 'lodash';
  
 const zip = document.getElementById('zip');
 const submit = document.getElementById('submit');
+const pageCont = document.getElementById('page-cont');
 const weatherCont = document.getElementById('weather-cont');
 const infoCont = document.getElementById('info-cont');
 // let weatherInfo = [];
@@ -22,12 +23,15 @@ const panelTwo = document.getElementById('panel-2');
 const panelsCont = document.getElementById('panels-cont');
  
 let currentDayHours = [];
+let weatherID = '';
  
  
 async function currentWeatherData(){
    try {
        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zip.value}&appid=b7f1fbb932658e619437fbf70e6e972a`);
        const data = await res.json();
+    //    const dt = new Date(data.dt * 1000).toTimeString();
+    //    console.log(dt);
        const overall = await data.weather[0].id;
  
        const currentTemp = await data.main.temp;
@@ -43,6 +47,8 @@ async function currentWeatherData(){
        cityName.textContent = `${data.name}`;
        await fetchWeatherBackground(overall, weatherCont);
        await fetchWeatherImg(overall, weatherCond);
+       panelOne.innerHTML = '';
+       panelTwo.innerHTML = '';
        await additionalInfoPanels(data);
        currentTempF.textContent = `${currentF}°F`;
        currentTempC.textContent = `${currentC}°C`;
@@ -61,8 +67,8 @@ async function forecastGen () {
        const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${zip.value}&cnt=8&appid=b7f1fbb932658e619437fbf70e6e972a`);
        const data = await res.json();
        for (let i = 0; i < 8; i++){
-           await currentDayHours.push(data.list[i]);
-           await dayElementGen(currentDayHours, i);
+            await currentDayHours.push(data.list[i]);
+            await dayElementGen(currentDayHours, i);
        }
        await console.log(currentDayHours);
    } catch (err) {
@@ -72,47 +78,56 @@ async function forecastGen () {
 }
  
 function dayElementGen (array, i) {
-   // Current Day Hourly Container
-   const dayCont = document.createElement('div');
-   dayCont.setAttribute('id', `day-cont-${i}`);
-   dayCont.classList.add('class-cont');
-   currentDayHourlyCont.append(dayCont);
- 
-   const currentDayTime = document.createElement('div');
-   currentDayTime.classList.add('current-day-time');
-   dayCont.append(currentDayTime);
-   currentDayTime.setAttribute('id', `current-day-time-${i}`);
-   currentDayTime.textContent = `${array[i].dt_txt}`;
- 
-   const currentDayHourly = document.createElement('div');
-   currentDayHourly.classList.add('current-day-hourly');
-   dayCont.append(currentDayHourly);
-   currentDayHourly.setAttribute('id', `current-day-hourly-${i}`);
- 
-   // Current Day Hourly Condition Img
-   const currentDayHourlyCond = document.createElement('img');
-   currentDayHourlyCond.classList.add('current-day-hourly-cond');
-   currentDayHourly.append(currentDayHourlyCond);
-   currentDayHourlyCond.setAttribute('id', `current-day-hourly-cond-${i}`);
-   const weatherID = array[i].weather.id;
-   fetchWeatherImg(weatherID, currentDayHourlyCond);
- 
-   // Current Day Hourly Temp (F)
-   const currentDayHourlyF = document.createElement('div');
-   currentDayHourlyF.classList.add('current-day-hourly-f');
-   currentDayHourly.append(currentDayHourlyF);
-   currentDayHourlyF.setAttribute('id', `current-day-hourly-f-${i}`)
-   const tempConversionF = Math.floor(9 / 5 * ((array[i].main.temp) - 273) + 32);
-   currentDayHourlyF.textContent = `${tempConversionF}`;
- 
-   // Current Day Hourly Temp (C)
-   const currentDayHourlyC = document.createElement('div');
-   currentDayHourlyC.classList.add('current-day-hourly-c');
-   currentDayHourly.append(currentDayHourlyC);
-   currentDayHourlyC.setAttribute('id', `current-day-hourly-c-${i}`);
-   const tempConversionC = Math.floor(array[i].main.temp - 273.15);
-   currentDayHourlyC.textContent = `${tempConversionC}`;
-  
+    // Current Day Hourly Container
+    const dayCont = document.createElement('div');
+    dayCont.setAttribute('id', `day-cont-${i}`);
+    dayCont.classList.add('current-day-cont');
+    currentDayHourlyCont.append(dayCont);
+
+    const currentDayTime = document.createElement('div');
+    currentDayTime.classList.add('current-day-time');
+    dayCont.append(currentDayTime);
+    currentDayTime.setAttribute('id', `current-day-time-${i}`);
+    let dt = new Date(array[i].dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    currentDayTime.textContent = `${dt}`;
+    // currentDayTime.textContent = `${array[i].dt_txt}`;
+
+    const currentDayHourly = document.createElement('div');
+    currentDayHourly.classList.add('current-day-temp-cond-cont');
+    dayCont.append(currentDayHourly);
+    currentDayHourly.setAttribute('id', `current-day-temp-cond-cont-${i}`);
+
+    // Current Day Hourly Condition Img
+    const currentDayHourlyCond = document.createElement('img');
+    currentDayHourlyCond.classList.add('current-day-hourly-cond');
+    currentDayHourly.append(currentDayHourlyCond);
+    currentDayHourlyCond.setAttribute('id', `current-day-hourly-cond-${i}`);
+    weatherID = array[i].weather[0].id;
+    console.log(weatherID);
+    fetchWeatherImg(weatherID, currentDayHourlyCond);
+
+    // Current Day Hourly Temp Cont
+    const currentDayHourlyTempCont = document.createElement('div');
+    currentDayHourlyTempCont.classList.add('current-day-hourly-temp-cont');
+    currentDayHourlyTempCont.setAttribute('id', `current-day-hourly-temp-cont-${i}`);
+    currentDayHourly.append(currentDayHourlyTempCont);
+
+    // Current Day Hourly Temp (F)
+    const currentDayHourlyF = document.createElement('div');
+    currentDayHourlyF.classList.add('current-day-hourly-f');
+    currentDayHourlyTempCont.append(currentDayHourlyF);
+    currentDayHourlyF.setAttribute('id', `current-day-hourly-f-${i}`)
+    const tempConversionF = Math.floor((9 / 5) * ((array[i].main.temp) - 273) + 32);
+    currentDayHourlyF.textContent = `${tempConversionF}`;
+
+    // Current Day Hourly Temp (C)
+    const currentDayHourlyC = document.createElement('div');
+    currentDayHourlyC.classList.add('current-day-hourly-c');
+    currentDayHourlyTempCont.append(currentDayHourlyC);
+    currentDayHourlyC.setAttribute('id', `current-day-hourly-c-${i}`);
+    const tempConversionC = Math.floor(array[i].main.temp - 273.15);
+    currentDayHourlyC.textContent = `${tempConversionC}`;
+
    return dayCont;
 }
  
@@ -303,7 +318,7 @@ async function fetchWeatherBackground (id, data){
         } else if (id >= 700 && id < 800) {
             data.style.backgroundImage = "url('../src/img/background/fog.jpg')";
         } else if (id === 800) {
-            data.style.backgroundImage = "url('../src/img/background/sunny.jpeg')";
+            data.style.backgroundImage = await "url('../src/img/background/sunny.jpeg')";
         } else {
             data.style.backgroundImage = await "url('../src/img/background/cloudy.jpeg')";
         }
@@ -315,6 +330,7 @@ async function fetchWeatherBackground (id, data){
  
  
 submit.addEventListener('click', e => {
+    currentDayHourlyCont.innerHTML = '';
    infoCont.hidden = false;
    currentDayHourlyCont.hidden = false;
    panelsCont.hidden = false;

@@ -29,14 +29,20 @@ body {
     height: 5vh;
 }
 
+#weather-cont {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 #info-cont {
-    /* background-color: green; */
+    background-color: green;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
-    width: 100%;
+    width: 30vw;
 }
 #city-name,
 #current-temp-f,
@@ -79,10 +85,56 @@ body {
     margin-bottom: 3vh;
 }
 
-.current-day-hourly-cond {
-    width: 10%;
-    height: auto;
+
+.current-day-cont {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: red;
+    border: 1px solid black;
+    height: 8.75vh;
+    width: 30vw;
 }
+
+.current-day-time {
+    background-color: aqua;
+}
+
+.current-day-temp-cond-cont {
+    background-color: green;
+    border: 1px solid yellow;
+    width: 10vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.current-day-hourly-cond {
+    width: 20%;
+    height:auto;
+    background-color: aqua;
+    align-self: center;
+}
+
+.current-day-hourly-temp-cont {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.current-day-hourly-f {
+    background-color: blue;
+}
+
+.current-day-hourly-c {
+    background-color: grey;
+}
+
+/* .current-day-hourly-f,
+.current-day-hourly-c {
+
+} */
 
 #panels-cont {
     display: grid;
