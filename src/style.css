@@ -35,7 +35,7 @@ body {
     font-family: 'body';
 }
 
-#title-cont,
+#title,
 #zip-label,
 #city-name,
 .feels-like-title,
@@ -66,7 +66,37 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between ;
+    align-items: center;
     height: 5vh;
+    background-color: rgba(232, 232, 232, .6);
+}
+
+#title,
+#zip-cont {
+    transition: 0.5s;
+}
+
+#title {
+    font-size: 1.5rem;
+    margin-left: 1vw;
+}
+
+#zip-label {
+    font-size: 1.5rem;
+    margin-right: 0.5vw;
+}
+
+#zip {
+    margin-right: 0.5rem;
+}
+
+#zip,
+#submit {
+    align-self: center;
+}
+
+#zip-cont {
+    margin-right: 1vw;
 }
 
 #weather-cont {
@@ -83,7 +113,7 @@ body {
     align-items: center;
     height: 100%;
     width: 30vw;
-   background-color: rgba(115, 115, 115, .75);
+   background-color: rgba(232, 232, 232, .6);
 }
 #city-name,
 #current-temp-f,
@@ -134,7 +164,7 @@ body {
     border: 1px solid black;
     height: 8.75vh;
     width: 30vw;
-    background-color: rgba(115, 115, 115, .75);
+    background-color: rgba(232, 232, 232, .6);
 }
 
 .current-day-time {
@@ -187,7 +217,7 @@ body {
 #panel-2 {
     display: grid;
     grid-template-columns: 20vw 20vw 20vw;
-    background-color: rgba(115, 115, 115, .75);
+    background-color: rgba(232, 232, 232, .6);
 }
 
 .feels-like-cont,
