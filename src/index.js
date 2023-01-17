@@ -44,6 +44,7 @@ async function currentWeatherData(){
        const currentTemp = await data.main.temp;
        const currentC = await currentTemp - 273;
        const currentF = await Math.floor(currentC * (9/5) + 32);
+       const formattedWeatherDesc = UppercaseFirstLetter(data.weather[0].description)
  
        const highTempC = await data.main.temp_max - 273;
        const lowTempC = await data.main.temp_min -273;
@@ -57,7 +58,7 @@ async function currentWeatherData(){
        panelOne.innerHTML = '';
        panelTwo.innerHTML = '';
        await additionalInfoPanels(data);
-       weatherDesc.textContent = `${data.weather[0].description}`;
+       weatherDesc.textContent = `${formattedWeatherDesc}`;
        currentTempF.textContent = `${currentF}°F`;
        currentTempC.textContent = `${currentC}°C`;
        highF.textContent = `H:${highTempF}°`;
@@ -304,6 +305,12 @@ async function fetchWeatherBackground (id){
         console.log('Error!');
         console.error(err);
     }
+}
+
+function UppercaseFirstLetter(str) {
+    return str.replace(/\w\S*/g, function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
 }
  
  
