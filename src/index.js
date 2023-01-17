@@ -7,7 +7,7 @@ const pageCont = document.getElementById('page-cont');
 const weatherCont = document.getElementById('weather-cont');
 const infoCont = document.getElementById('info-cont');
 const info = document.getElementById('info');
-// let weatherInfo = [];
+const weatherDesc = document.getElementById('weather-desc');
 const cityName = document.getElementById('city-name');
 const weatherCond = document.getElementById('weather-cond');
 const currentTempF = document.getElementById('current-temp-f');
@@ -26,6 +26,11 @@ const panels = document.getElementById('panels');
  
 let currentDayHours = [];
 let weatherID = '';
+
+const hourlyTempsC = document.querySelectorAll('.current-day-hourly-c');
+const hourlyTempsF = document.querySelectorAll('.current-day-hourly-f');
+const feelsLikeTempsC = document.querySelectorAll('.feels-like-temp-c');
+const feelsLikeTempsF = document.querySelectorAll('.feels-like-temp-f');
  
  
 async function currentWeatherData(){
@@ -52,6 +57,7 @@ async function currentWeatherData(){
        panelOne.innerHTML = '';
        panelTwo.innerHTML = '';
        await additionalInfoPanels(data);
+       weatherDesc.textContent = `${data.weather[0].description}`;
        currentTempF.textContent = `${currentF}°F`;
        currentTempC.textContent = `${currentC}°C`;
        highF.textContent = `H:${highTempF}°`;
@@ -80,6 +86,7 @@ async function forecastGen () {
 }
  
 function dayElementGen (array, i) {
+
     // Current Day Hourly Container
     const dayCont = document.createElement('div');
     dayCont.setAttribute('id', `day-cont-${i}`);
@@ -129,6 +136,7 @@ function dayElementGen (array, i) {
     currentDayHourlyC.setAttribute('id', `current-day-hourly-c-${i}`);
     const tempConversionC = Math.floor(array[i].main.temp - 273.15);
     currentDayHourlyC.textContent = `${tempConversionC}°C`;
+    currentDayHourlyC.hidden = true;
 
    return dayCont;
 }
@@ -155,6 +163,7 @@ async function additionalInfoPanels (data) {
    feelsLikeTempC.classList.add('feels-like-temp-c');
    feelsLikeTempC.textContent = `${Math.floor(data.main.feels_like - 273.15)}°C`;
    feelsLikeCont.append(feelsLikeTempC);
+   feelsLikeTempC.hidden = true;
  
  
    // Humidity
@@ -300,10 +309,11 @@ async function fetchWeatherBackground (id){
  
 submit.addEventListener('click', e => {
     currentDayHourlyCont.innerHTML = '';
-   info.hidden = false;
-   currentDayHourlyCont.hidden = false;
-   panels.hidden = false;
-   const current = currentWeatherData();
-   const future = forecastGen();
+    currentDayHours = [];
+    info.hidden = false;
+    currentDayHourlyCont.hidden = false;
+    panels.hidden = false;
+    const current = currentWeatherData();
+    const future = forecastGen();
 })
 

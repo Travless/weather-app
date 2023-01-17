@@ -51,16 +51,9 @@ body {
     display: flex;
     flex-direction: row;
     width: 100vw;
-    height: 70vh;
+    max-height: 70vh;
+    min-height: 50vh;
 }
-
-/* #page-cont {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-} */
 
 #header {
     display: flex;
@@ -73,7 +66,7 @@ body {
 
 #title,
 #zip-cont {
-    transition: 0.5s;
+    transition: 0.75s;
 }
 
 #title {
@@ -103,6 +96,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    transition: 0.75s;
 }
 
 #info-cont {
@@ -113,34 +107,35 @@ body {
     align-items: center;
     height: 100%;
     width: 30vw;
-   background-color: rgba(232, 232, 232, .6);
+    background-color: rgba(232, 232, 232, .6);
+    transition: 0.75s;
 }
 #city-name,
 #current-temp-f,
 #current-temp-c {
     font-size: 2rem;
-    /* margin-top: 3vh;
-    margin-bottom: 3vh; */
+    transform: 0.75s;
 }
 
 #city-name {
     margin-top: 3vh;
     margin-bottom: 3vh;
+    transition: 0.75s;
 }
-
-
 
 #high-low-temps-cont {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: 0.75s;
 }
 
 #high-low-f,
 #high-low-c {
     display: flex;
     flex-direction: row;
+    transition: 0.75s;
 }
 
 #high-f,
@@ -148,12 +143,14 @@ body {
 #high-c,
 #low-c {
     font-size: 1.5rem;
+    transition: 0.75s;
 }
 
 #weather-cond {
     width: 30%;
     height: auto;
     margin-bottom: 3vh;
+    transition: 0.75s;
 }
 
 
@@ -165,10 +162,20 @@ body {
     height: 8.75vh;
     width: 30vw;
     background-color: rgba(232, 232, 232, .6);
+    transition: 0.75s;
 }
 
 .current-day-time {
     align-self: center;
+    padding-left: 1vw;
+    transition: 0.75s;
+}
+
+.current-day-time,
+.current-day-hourly-f,
+.current-day-hourly-c {
+    font-size: 1.5rem;
+    transition: 0.75s;
 }
 
 .current-day-temp-cond-cont {
@@ -177,12 +184,14 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    transition: 0.75s;
 }
 
 .current-day-hourly-cond {
     width: 20%;
     height:auto;
     align-self: center;
+    transition: 0.75s;
 }
 
 .current-day-hourly-temp-cont {
@@ -190,20 +199,9 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    transition: 0.75s;
 }
 
-.current-day-hourly-f {
-    background-color: blue;
-}
-
-.current-day-hourly-c {
-    background-color: grey;
-}
-
-/* .current-day-hourly-f,
-.current-day-hourly-c {
-
-} */
 
 #panels-cont {
     display: grid;
@@ -211,6 +209,7 @@ body {
     justify-items: center;
     height: 25vh;
     width: 100vw;
+    transition: 0.75s;
 }
 
 #panel-1,
@@ -218,6 +217,7 @@ body {
     display: grid;
     grid-template-columns: 20vw 20vw 20vw;
     background-color: rgba(232, 232, 232, .6);
+    transition: 0.75s;
 }
 
 .feels-like-cont,
@@ -227,6 +227,7 @@ body {
 .cloudiness-cont,
 .visibility-cont {
     border: 1px solid black;
+    transition: 0.75s;
 }
 
 .wind-cont {
