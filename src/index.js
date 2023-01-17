@@ -1,8 +1,9 @@
 import { forEach, min } from 'lodash';
 // import './style.css';
- 
+
+const landingPage = document.getElementById('landing-page');
 const zip = document.getElementById('zip');
-const submit = document.getElementById('submit');
+const search = document.getElementById('search');
 let unitChange = document.getElementById('unit-change');
 const pageCont = document.getElementById('page-cont');
 const weatherCont = document.getElementById('weather-cont');
@@ -33,6 +34,14 @@ const feelsLikeTempChangeC = document.getElementById('feels-like-temp-c');
 let currentDayHours = [];
 let weatherID = '';
 unitChange.textContent = 'Display °C';
+
+function landingPageLoad() {
+    document.body.style.backgroundImage = 'url("../src/img/landing/landing-page.jpg")';
+    const landingPageTextCont = document.createElement('div');
+    landingPage.append(landingPageTextCont);
+    const landingPageImg = document.createElement('img');
+    landingPageImg.src = URL('../src/img/logo.png');
+}
  
  
 async function currentWeatherData(){
@@ -312,7 +321,7 @@ function UppercaseFirstLetter(str) {
 }
  
  
-submit.addEventListener('click', e => {
+search.addEventListener('click', e => {
     currentDayHourlyCont.innerHTML = '';
     currentDayHours = [];
     info.hidden = false;
@@ -349,3 +358,5 @@ unitChange.addEventListener('click', e => {
         highLowF.hidden = false;
     }
 })
+
+landingPageLoad();
