@@ -35,12 +35,25 @@ let currentDayHours = [];
 let weatherID = '';
 unitChange.textContent = 'Display °C';
 
-function landingPageLoad() {
-    document.body.style.backgroundImage = 'url("../src/img/landing/landing-page.jpg")';
-    const landingPageTextCont = document.createElement('div');
-    landingPage.append(landingPageTextCont);
-    const landingPageImg = document.createElement('img');
-    landingPageImg.src = URL('../src/img/logo.png');
+async function landingPageLoad() {
+    document.body.style.backgroundImage = await 'url("../src/img/landing/landing-page.jpg")';
+    const landingPageTextCont = await document.createElement('div');
+    landingPageTextCont.classList.add('landing-text-cont');
+    await landingPage.append(landingPageTextCont);
+    const landingPageImg = await document.createElement('img');
+    landingPageImg.classList.add('landing-img');
+    const logoImg = await fetch('../src/img/logo.png');
+    const blob = await logoImg.blob();
+    landingPageImg.src = URL.createObjectURL(blob);
+    landingPageTextCont.append(landingPageImg);
+    const landingTitle = document.createElement('div');
+    landingTitle.classList.add('landing-title');
+    landingTitle.textContent = 'Current Weather Conditions With One Click';
+    landingPageTextCont.append(landingTitle);
+    const landingZip = document.createElement('div');
+    landingZip.classList.add('landing-zip');
+    landingZip.textContent = 'Enter a valid US zip code above to receive an up-to-date weather forecast in that area.';
+    landingPageTextCont.append(landingZip);
 }
  
  
@@ -322,6 +335,7 @@ function UppercaseFirstLetter(str) {
  
  
 search.addEventListener('click', e => {
+    landingPage.innerHTML = '';
     currentDayHourlyCont.innerHTML = '';
     currentDayHours = [];
     info.hidden = false;

@@ -18,6 +18,7 @@ body {
 }
 
 /* FONT ASSIGNMENT */
+.landing-zip,
 #unit-change,
 #search,
 #weather-desc,
@@ -39,6 +40,7 @@ body {
     font-family: 'body';
 }
 
+.landing-title,
 #title,
 #zip-label,
 #city-name,
@@ -51,6 +53,27 @@ body {
     font-family: 'heading';
 }
 
+#landing-page,
+.landing-text-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-text-cont {
+    margin-top: 15vh;
+    transition: 0.6s;
+}
+
+.landing-title {
+    font-size: 3rem;
+    margin-top: 2vh;
+}
+
+.landing-zip {
+    font-size: 2rem;
+}
 
 #weather-cont {
     display: flex;
