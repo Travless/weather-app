@@ -16,6 +16,7 @@ body {
     margin: 0;
 }
 
+#weather-desc,
 #current-temp-f,
 #current-temp-c,
 #high-f,
@@ -25,11 +26,10 @@ body {
 .current-day-time,
 .current-day-hourly-f,
 .current-day-hourly-c,
-.feels-like-temp-f,
-.feels-like-temp-c,
+.sun-rise-time,
 .humidity-data,
 .wind-data,
-.pressure-data,
+.sun-set-time,
 .cloudiness-data,
 .visibility-data {
     font-family: 'body';
@@ -38,10 +38,10 @@ body {
 #title,
 #zip-label,
 #city-name,
-.feels-like-title,
+.sun-rise-title,
 .humidity-title,
 .wind-title,
-.pressure-title,
+.sun-set-title,
 .cloudiness-title,
 .visibility-title {
     font-family: 'heading';
@@ -100,20 +100,28 @@ body {
 }
 
 #info-cont {
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 98%;
     width: 30vw;
+    border-radius: 10px;
+    /* margin: 1vh 0.5vw 1vh 0.5vw; */
+    margin-top: 1vh;
+    margin-bottom: 1vh;
     background-color: rgba(232, 232, 232, .6);
     transition: 0.75s;
 }
-#city-name,
+
+#city-name {
+    font-size: 3rem;
+}
+
+#weather-desc,
 #current-temp-f,
 #current-temp-c {
-    font-size: 2rem;
+    font-size: 2.5rem;
     transform: 0.75s;
 }
 
@@ -158,11 +166,12 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border: 1px solid black;
-    height: 8.75vh;
+    height: 7.70vh;
     width: 30vw;
     background-color: rgba(232, 232, 232, .6);
     transition: 0.75s;
+    border-radius: 10px;
+    margin: 1vh 0.5vw 1vh 0.5vh;
 }
 
 .current-day-time {
@@ -179,11 +188,10 @@ body {
 }
 
 .current-day-temp-cond-cont {
-    border: 1px solid black;
     width: 10vw;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content:space-between;
     transition: 0.75s;
 }
 
@@ -192,6 +200,7 @@ body {
     height:auto;
     align-self: center;
     transition: 0.75s;
+    margin-left: 3vw;
 }
 
 .current-day-hourly-temp-cont {
@@ -200,6 +209,7 @@ body {
     justify-content: center;
     align-items: center;
     transition: 0.75s;
+    margin-right: 1vw;
 }
 
 
@@ -207,7 +217,7 @@ body {
     display: grid;
     grid-template-rows: 12.5vh 12.5vh;
     justify-items: center;
-    height: 25vh;
+    height: 29vh;
     width: 100vw;
     transition: 0.75s;
 }
@@ -218,19 +228,51 @@ body {
     grid-template-columns: 20vw 20vw 20vw;
     background-color: rgba(232, 232, 232, .6);
     transition: 0.75s;
+    border-radius: 10px;
+    margin: 0.5vh 0.5vw 0.5vh 0.5vh;
 }
 
-.feels-like-cont,
+.sun-set-cont,
 .humidity-cont,
 .wind-cont,
-.pressure-cont,
+.sun-rise-cont,
 .cloudiness-cont,
 .visibility-cont {
-    border: 1px solid black;
     transition: 0.75s;
 }
 
-.wind-cont {
+/* .wind-cont {
     display: flex;
     flex-direction: column;
+} */
+
+.sun-rise-cont,
+.humidity-cont,
+.wind-cont,
+.sun-set-cont,
+.cloudiness-cont,
+.visibility-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sun-rise-title,
+.humidity-title,
+.wind-title,
+.sun-set-title,
+.cloudiness-title,
+.visibility-title {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.sun-rise-time,
+.humidity-data,
+.wind-data,
+.sun-set-time,
+.cloudiness-data,
+.visibility-data {
+    font-size: 1.25em;
 }

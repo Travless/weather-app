@@ -3,6 +3,7 @@ import { forEach, min } from 'lodash';
  
 const zip = document.getElementById('zip');
 const submit = document.getElementById('submit');
+let unitChange = document.getElementById('unit-change');
 const pageCont = document.getElementById('page-cont');
 const weatherCont = document.getElementById('weather-cont');
 const infoCont = document.getElementById('info-cont');
@@ -23,14 +24,15 @@ const panelOne = document.getElementById('panel-1');
 const panelTwo = document.getElementById('panel-2');
 const panelsCont = document.getElementById('panels-cont');
 const panels = document.getElementById('panels');
+
+const hourlyTempsC = document.getElementsByClassName('current-day-hourly-c');
+const hourlyTempsF = document.getElementsByClassName('current-day-hourly-f');
+const feelsLikeTempChangeF = document.getElementById('feels-like-temp-f');
+const feelsLikeTempChangeC = document.getElementById('feels-like-temp-c');
  
 let currentDayHours = [];
 let weatherID = '';
-
-const hourlyTempsC = document.querySelectorAll('.current-day-hourly-c');
-const hourlyTempsF = document.querySelectorAll('.current-day-hourly-f');
-const feelsLikeTempsC = document.querySelectorAll('.feels-like-temp-c');
-const feelsLikeTempsF = document.querySelectorAll('.feels-like-temp-f');
+unitChange.textContent = 'Display °C';
  
  
 async function currentWeatherData(){
@@ -42,12 +44,12 @@ async function currentWeatherData(){
        const overall = await data.weather[0].id;
  
        const currentTemp = await data.main.temp;
-       const currentC = await currentTemp - 273;
+       const currentC = await Math.floor(currentTemp - 273);
        const currentF = await Math.floor(currentC * (9/5) + 32);
        const formattedWeatherDesc = UppercaseFirstLetter(data.weather[0].description)
  
-       const highTempC = await data.main.temp_max - 273;
-       const lowTempC = await data.main.temp_min -273;
+       const highTempC = await Math.floor(data.main.temp_max - 273);
+       const lowTempC = await Math.floor(data.main.temp_min -273);
        const highTempF = await Math.floor(highTempC * (9/5) + 32);
        const lowTempF = await Math.floor(lowTempC * (9/5) + 32);
  
@@ -86,7 +88,7 @@ async function forecastGen () {
    }
 }
  
-function dayElementGen (array, i) {
+async function dayElementGen (array, i) {
 
     // Current Day Hourly Container
     const dayCont = document.createElement('div');
@@ -145,27 +147,22 @@ function dayElementGen (array, i) {
  
 async function additionalInfoPanels (data) {
  
-   // Feels Like
-   const feelsLikeCont = document.createElement('div');
-   feelsLikeCont.classList.add('feels-like-cont');
-   panelOne.append(feelsLikeCont);
+   // Sunrise
+   const sunRiseCont = document.createElement('div');
+   sunRiseCont.classList.add('sun-rise-cont');
+   panelOne.append(sunRiseCont);
  
-   const feelsLikeTitle = document.createElement('div');
-   feelsLikeTitle.classList.add('feels-like-title');
-   feelsLikeTitle.textContent = 'Feels Like';
-   feelsLikeCont.append(feelsLikeTitle);
+   const sunRiseTitle = document.createElement('div');
+   sunRiseTitle.classList.add('sun-rise-title');
+   sunRiseTitle.textContent = 'Sunrise';
+   sunRiseCont.append(sunRiseTitle);
  
-   const feelsLikeTempF = document.createElement('div');
-   feelsLikeTempF.classList.add('feels-like-temp-f');
-   feelsLikeTempF.textContent = `${Math.floor(9 / 5 * ((data.main.feels_like) - 273) + 32)}°F`;
-   feelsLikeCont.append(feelsLikeTempF);
- 
-   const feelsLikeTempC = document.createElement('div');
-   feelsLikeTempC.classList.add('feels-like-temp-c');
-   feelsLikeTempC.textContent = `${Math.floor(data.main.feels_like - 273.15)}°C`;
-   feelsLikeCont.append(feelsLikeTempC);
-   feelsLikeTempC.hidden = true;
- 
+   const sunRiseTime = document.createElement('div');
+   sunRiseTime.classList.add('sun-rise-time');
+   sunRiseTime.setAttribute('id', 'sun-rise-time');
+   const sunRise = new Date(data.sys.sunrise * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+   sunRiseTime.textContent = `${sunRise}`;
+   sunRiseCont.append(sunRiseTime);
  
    // Humidity
    const humidityCont = document.createElement('div');
@@ -198,20 +195,21 @@ async function additionalInfoPanels (data) {
    windCont.append(windData);
  
  
-   // Pressure
-   const pressureCont = document.createElement('div');
-   pressureCont.classList.add('pressure-cont');
-   panelTwo.append(pressureCont);
+   // Sunset
+   const sunSetCont = document.createElement('div');
+   sunSetCont.classList.add('sun-set-cont');
+   panelTwo.append(sunSetCont);
  
-   const pressureTitle = document.createElement('div');
-   pressureTitle.classList.add('pressure-title');
-   pressureTitle.textContent = 'Pressure (hPa)';
-   pressureCont.append(pressureTitle);
+   const sunSetTitle = document.createElement('div');
+   sunSetTitle.classList.add('sun-set-title');
+   sunSetTitle.textContent = 'Sunset';
+   sunSetCont.append(sunSetTitle);
  
-   const pressureData = document.createElement('div');
-   pressureData.classList.add('pressure-data');
-   pressureData.textContent = `${data.main.pressure} hPa`;
-   pressureCont.append(pressureData);
+   const sunSetTime = document.createElement('div');
+   sunSetTime.classList.add('sun-set-time');
+   const sunSet = new Date(data.sys.sunset * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+   sunSetTime.textContent = `${sunSet}`;
+   sunSetCont.append(sunSetTime);
  
  
    // Cloudiness
@@ -324,3 +322,30 @@ submit.addEventListener('click', e => {
     const future = forecastGen();
 })
 
+unitChange.addEventListener('click', e => {
+    if(unitChange.textContent === 'Display °C'){
+        unitChange.textContent = 'Display °F'
+        for(let i = 0; i < hourlyTempsC.length; i++) {
+            hourlyTempsC[i].hidden = false;
+            hourlyTempsF[i].hidden = true;
+        }
+
+        currentTempC.hidden = false;
+        currentTempF.hidden = true;
+
+        highLowC.hidden = false;
+        highLowF.hidden = true;
+    } else if (unitChange.textContent === 'Display °F'){
+        unitChange.textContent = 'Display °C'
+        for(let i = 0; i < hourlyTempsC.length; i++) {
+            hourlyTempsC[i].hidden = true;
+            hourlyTempsF[i].hidden = false;
+        }
+
+        currentTempC.hidden = true;
+        currentTempF.hidden = false;
+
+        highLowC.hidden = true;
+        highLowF.hidden = false;
+    }
+})
