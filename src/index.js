@@ -1,5 +1,5 @@
 import { forEach, min } from 'lodash';
-import './style.css';
+// import './style.css';
 
 
 // Element
@@ -38,13 +38,13 @@ let weatherID = '';
 unitChange.textContent = 'Display °C';
 
 async function landingPageLoad() {
-    document.body.style.backgroundImage = await 'url("../src/img/landing/landing-page.jpg")';
+    document.body.style.backgroundImage = await 'url("landing-page.jpg")';
     const landingPageTextCont = await document.createElement('div');
     landingPageTextCont.classList.add('landing-text-cont');
     await landingPage.append(landingPageTextCont);
     const landingPageImg = await document.createElement('img');
     landingPageImg.classList.add('landing-img');
-    const logoImg = await fetch('../src/img/logo.png');
+    const logoImg = await fetch('logo.png');
     const blob = await logoImg.blob();
     landingPageImg.src = URL.createObjectURL(blob);
     landingPageTextCont.append(landingPageImg);
@@ -270,27 +270,27 @@ async function additionalInfoPanels (data) {
 async function fetchWeatherImg (id, data) {
    try {
        if (id >= 200 && id < 300) {
-           const thunder = await fetch('../src/img/thunderstorm.png');
+           const thunder = await fetch('thunderstorm.png');
            const blob = await thunder.blob();
            data.src = URL.createObjectURL(blob);
        } else if (id >= 300 && id < 600) {
-           const rainy = await fetch('../src/img/rainy.png');
+           const rainy = await fetch('rainy.png');
            const blob = await rainy.blob();
            data.src = URL.createObjectURL(blob);
        } else if (id >= 600 && id < 700) {
-           const snowing = await fetch('../src/img/snowing.png');
+           const snowing = await fetch('snowing.png');
            const blob = await snowing.blob();
            data.src = URL.createObjectURL(blob);
        } else if (id >= 700 && id < 800) {
-           const warning = await fetch('../src/img/warning.png');
+           const warning = await fetch('warning.png');
            const blob = await warning.blob();
            data.src = URL.createObjectURL(blob);
        } else if (id === 800) {
-           const sunny = await fetch('../src/img/sunny-day.png');
+           const sunny = await fetch('sunny-day.png');
            const blob = await sunny.blob();
            data.src = URL.createObjectURL(blob);
        } else {
-           const clouds = await fetch('../src/img/cloud.png');
+           const clouds = await fetch('cloud.png');
            const blob = await clouds.blob();
            data.src = URL.createObjectURL(blob);
        }
@@ -303,22 +303,22 @@ async function fetchWeatherImg (id, data) {
 async function fetchWeatherBackground (id){
     try{
         if (id >= 200 && id < 300) {
-            document.body.style.backgroundImage = "url('../src/img/background/thunder.jpg')";
+            document.body.style.backgroundImage = "url('thunder.jpg')";
             document.body.style.backgroundSize = 'cover';
         } else if (id >= 300 && id < 600) {
-            document.body.style.backgroundImage = "url('../src/img/background/rainy.jpg')";
+            document.body.style.backgroundImage = "url('rainy.jpg')";
             document.body.style.backgroundSize = 'cover';
         } else if (id >= 600 && id < 700) {
-            document.body.style.backgroundImage = "url('../src/img/background/snowy.jpg')";
+            document.body.style.backgroundImage = "url('snowy.jpg')";
             document.body.style.backgroundSize = 'cover';
         } else if (id >= 700 && id < 800) {
-            document.body.style.backgroundImage = "url('../src/img/background/fog.jpg')";
+            document.body.style.backgroundImage = "url('fog.jpg')";
             document.body.style.backgroundSize = 'cover';
         } else if (id === 800) {
-            document.body.style.backgroundImage = await "url('../src/img/background/sunny.jpeg')";
+            document.body.style.backgroundImage = await "url('sunny.jpeg')";
             document.body.style.backgroundSize = 'cover';
         } else {
-            document.body.style.backgroundImage = await "url('../src/img/background/cloudy.jpeg')";
+            document.body.style.backgroundImage = await "url('cloudy.jpeg')";
             document.body.style.backgroundSize = 'cover';
         }
     } catch (err) {
