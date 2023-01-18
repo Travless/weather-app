@@ -2,14 +2,12 @@ import { forEach, min } from 'lodash';
 // import './style.css';
 
 
-// Element
+// Element Methods
 const landingPage = document.getElementById('landing-page');
 const zip = document.getElementById('zip');
 const search = document.getElementById('search');
 let unitChange = document.getElementById('unit-change');
 const pageCont = document.getElementById('page-cont');
-const weatherCont = document.getElementById('weather-cont');
-const infoCont = document.getElementById('info-cont');
 const info = document.getElementById('info');
 const weatherDesc = document.getElementById('weather-desc');
 const cityName = document.getElementById('city-name');
@@ -30,13 +28,12 @@ const panels = document.getElementById('panels');
 
 const hourlyTempsC = document.getElementsByClassName('current-day-hourly-c');
 const hourlyTempsF = document.getElementsByClassName('current-day-hourly-f');
-const feelsLikeTempChangeF = document.getElementById('feels-like-temp-f');
-const feelsLikeTempChangeC = document.getElementById('feels-like-temp-c');
- 
 let currentDayHours = [];
 let weatherID = '';
 unitChange.textContent = 'Display °C';
 
+
+// Landing Page Initial Load
 async function landingPageLoad() {
     document.body.style.backgroundImage = await 'url("landing-page.jpg")';
     const landingPageTextCont = await document.createElement('div');
@@ -57,19 +54,18 @@ async function landingPageLoad() {
     landingZip.textContent = 'Enter a valid US zip code above to receive an up-to-date weather forecast in that area.';
     landingPageTextCont.append(landingZip);
 }
- 
+
+// API Request for Current Weather Data
 async function currentWeatherData(){
    try {
        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zip.value}&appid=b7f1fbb932658e619437fbf70e6e972a`);
        const data = await res.json();
-    //    const dt = new Date(data.dt * 1000).toTimeString();
-    //    console.log(dt);
        const overall = await data.weather[0].id;
  
        const currentTemp = await data.main.temp;
        const currentC = await Math.floor(currentTemp - 273);
        const currentF = await Math.floor(currentC * (9/5) + 32);
-       const formattedWeatherDesc = UppercaseFirstLetter(data.weather[0].description)
+       const formattedWeatherDesc = uppercaseFirstLetter(data.weather[0].description)
  
        const highTempC = await Math.floor(data.main.temp_max - 273);
        const lowTempC = await Math.floor(data.main.temp_min -273);
@@ -96,6 +92,7 @@ async function currentWeatherData(){
    }
 };
  
+// API Request for 3 Hour Interval Forecast
 async function forecastGen () {
    try {
        const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${zip.value}&cnt=8&appid=b7f1fbb932658e619437fbf70e6e972a`);
@@ -111,6 +108,7 @@ async function forecastGen () {
    }
 }
  
+// DOM Element Generation for 3 Hour Interval Forecast
 async function dayElementGen (array, i) {
 
     // Current Day Hourly Container
@@ -167,6 +165,7 @@ async function dayElementGen (array, i) {
    return dayCont;
 }
 
+// DOM Element Generation for Additional Info Panels
 async function additionalInfoPanels (data) {
  
    // Sunrise
@@ -266,7 +265,8 @@ async function additionalInfoPanels (data) {
    visibilityCont.append(visibilityData);
  
 }
- 
+
+// Fetch Request for Weather Condition Icon
 async function fetchWeatherImg (id, data) {
    try {
        if (id >= 200 && id < 300) {
@@ -300,6 +300,7 @@ async function fetchWeatherImg (id, data) {
    }
 }
 
+// Fetch Request for Weather Condition Background
 async function fetchWeatherBackground (id){
     try{
         if (id >= 200 && id < 300) {
@@ -327,7 +328,8 @@ async function fetchWeatherBackground (id){
     }
 }
 
-function UppercaseFirstLetter(str) {
+// Function That Converts the First Letter of Each Word of a Given String To Uppercase
+function uppercaseFirstLetter(str) {
     return str.replace(/\w\S*/g, function(txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
