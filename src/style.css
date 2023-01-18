@@ -247,7 +247,6 @@ body {
     grid-template-rows: 12.5vh 12.5vh;
     justify-items: center;
     height: 29vh;
-    /* width: 100vw; */
     transition: 0.75s;
     margin-top: 1vh;
 }
@@ -256,10 +255,8 @@ body {
 #panel-2 {
     display: grid;
     grid-template-columns: 20vw 20vw 20vw;
-    /* background-color: rgba(232, 232, 232, .6); */
     transition: 0.75s;
     border-radius: 10px;
-    /* margin: 0.5vh 0.5vw 0.5vh 0.5vh; */
 }
 
 .sun-set-cont,
@@ -270,11 +267,6 @@ body {
 .visibility-cont {
     transition: 0.75s;
 }
-
-/* .wind-cont {
-    display: flex;
-    flex-direction: column;
-} */
 
 .sun-rise-cont,
 .humidity-cont,
@@ -328,5 +320,17 @@ body {
     color: black;
     font-family: 'heading';
     filter: drop-shadow(0px 0px 5px black);
+    transition: 0.3s;
+}
+
+#info:hover,
+.current-day-cont:hover,
+.sun-rise-cont:hover,
+.humidity-cont:hover,
+.wind-cont:hover,
+.sun-set-cont:hover,
+.cloudiness-cont:hover,
+.visibility-cont:hover {
+    filter: drop-shadow(0px 0px 5px white);
     transition: 0.3s;
 }

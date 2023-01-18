@@ -1,6 +1,8 @@
 import { forEach, min } from 'lodash';
-// import './style.css';
+import './style.css';
 
+
+// Element
 const landingPage = document.getElementById('landing-page');
 const zip = document.getElementById('zip');
 const search = document.getElementById('search');
@@ -55,7 +57,6 @@ async function landingPageLoad() {
     landingZip.textContent = 'Enter a valid US zip code above to receive an up-to-date weather forecast in that area.';
     landingPageTextCont.append(landingZip);
 }
- 
  
 async function currentWeatherData(){
    try {
@@ -166,7 +167,6 @@ async function dayElementGen (array, i) {
    return dayCont;
 }
 
- 
 async function additionalInfoPanels (data) {
  
    // Sunrise
